@@ -14,9 +14,9 @@ const router = createRouter({
 			component: () => import('@/views/Index.vue')
 		},
 		{
-			path: '/directory',
-			name: 'Directory',
-			component: () => import('@/views/Directory.vue')
+			path: '/note',
+			name: 'Note',
+			component: () => import('@/views/Note.vue')
 		},
 		{
 			path: '/image',

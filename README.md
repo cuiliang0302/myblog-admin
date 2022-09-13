@@ -59,7 +59,7 @@ src/api/request.js手动请求登录接口，填写token
 
 ### prod模式
 
-注释token认证，使用session认证
+dockerfile打包时会自动注释token，使用session认证
 
 ## 更新日志
 v1.0

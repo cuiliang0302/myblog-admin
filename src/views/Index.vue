@@ -345,17 +345,17 @@ async function page() {
   const uv = []
   const in_count = []
   const time = []
-  for (let i in chartData) {
+  for (let i = 0; i < 5; i++) {
     let type
     if (chartData[i].url.includes("m.cuiliangblog")) {
       type = '桌面端'
     } else {
       type = '移动端'
     }
-    if (chartData[i].url.split('#')[1]){
-      url.push(type+'-'+chartData[i].url.split('#')[1])
-    }else{
-      url.push(type+'-/')
+    if (chartData[i].url.split('#')[1]) {
+      url.push(type + '-' + chartData[i].url.split('#')[1])
+    } else {
+      url.push(type + '-/')
     }
     pv.push(chartData[i].pv)
     uv.push(chartData[i].uv)

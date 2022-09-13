@@ -9,8 +9,8 @@ export function request(config) {
     })
     // 请求拦截器配置
     instance.interceptors.request.use(config => {
-            const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3MDYzNjA4LCJpYXQiOjE2NTcwNjMwMDgsImp0aSI6ImMyZTgxMWIyNDhjNDRlNTBhZTY0Y2QzZmYzN2RjMWI0IiwidXNlcl9pZCI6MX0.Vp-EeetMslX6fS8l507qODAhRnxVA8nEW8aNKoN7sKU'
-            //config.headers.Authorization = 'Bearer ' + token
+            const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYzMDMwODEwLCJpYXQiOjE2NjMwMzAyMTAsImp0aSI6IjhmZjY3Y2JiZWQwNTQyNDdiZmMzZTVkOTM2M2NkN2I1IiwidXNlcl9pZCI6MX0.MD9LNvSsaK_aoIUAfeAQz0uyLpkuoPsBN7w1xGl4hsc'
+            config.headers.Authorization = 'Bearer ' + token
             return config
         }, error => {
             console.log(error)

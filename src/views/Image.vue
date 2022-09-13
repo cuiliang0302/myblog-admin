@@ -12,7 +12,7 @@
             >
             </el-option>
           </el-select>
-          <span v-show="imageForm.directory">
+          <span v-show="imageForm.directory" class="img-tips">
             <p>图片上传目录：{{ imageForm.directory }}</p>
             <p>图片上传尺寸：{{ imageForm.width }} X {{ imageForm.height }}</p>
           </span>
@@ -148,5 +148,15 @@ const cancel = () => {
 
 .el-card {
   margin-bottom: 15px;
+}
+.img-tips{
+  display: flex;
+  p {
+    margin: 0;
+  }
+  p:first-child{
+    margin-left: 20px;
+    margin-right: 30px;
+  }
 }
 </style>
