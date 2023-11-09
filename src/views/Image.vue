@@ -17,13 +17,18 @@
             <p>图片上传尺寸：{{ imageForm.width }} X {{ imageForm.height }}</p>
           </span>
         </el-form-item>
+        <el-form-item label="文件名称：">
+          <el-input v-model="imageForm.name" placeholder="请输入图片文件名称(带后缀)，默认取当前时间为文件名"
+                    style="width: 30%"/>
+        </el-form-item>
         <el-form-item v-if="imageForm.width" label="图片上传：">
           <UploadImgFixed :width="imageForm.width" :height="imageForm.height" :dir="imageForm.directory"
-                     @saveImg="saveImg"></UploadImgFixed>
+                          :name="imageForm.name"
+                          @saveImg="saveImg"></UploadImgFixed>
         </el-form-item>
         <el-form-item v-else label="图片上传：">
           <UploadImgAny :dir="imageForm.directory"
-                          @saveImg="saveImg"></UploadImgAny>
+                        @saveImg="saveImg"></UploadImgAny>
         </el-form-item>
         <el-form-item label="图片预览：" v-show="imageForm.url">
           <el-image
@@ -46,10 +51,12 @@ import UploadImgFixed from "@/components/UploadImgFixed.vue"
 import UploadImgAny from "@/components/UploadImgAny.vue"
 import {reactive} from "vue";
 import {ElMessage} from "element-plus";
-const { toClipboard } = useClipboard()
+
+const {toClipboard} = useClipboard()
 // 上传路径表单
 const imageForm = reactive({
   value: '',
+  name: '',
   directory: '',
   url: '',
   width: 100,
@@ -149,12 +156,15 @@ const cancel = () => {
 .el-card {
   margin-bottom: 15px;
 }
-.img-tips{
+
+.img-tips {
   display: flex;
+
   p {
     margin: 0;
   }
-  p:first-child{
+
+  p:first-child {
     margin-left: 20px;
     margin-right: 30px;
   }

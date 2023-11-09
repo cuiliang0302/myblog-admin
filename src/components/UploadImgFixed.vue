@@ -27,30 +27,30 @@
         </span>
       </div>
       <template #footer>
-        <el-button size="medium" type="success">
+        <el-button size="large" type="success">
           <label class="pointer" for="uploads">更换图片</label>
         </el-button>
         <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);"
                accept="image/png, image/jpeg, image/jpg" @change="uploadChange($event)">
         <el-button-group class="cropper-btn-group">
-          <el-button size="medium" type="primary" plain @click="changeScale(1)">
+          <el-button size="large" type="primary" plain @click="changeScale(1)">
             <MyIcon type="icon-amplification"/>
           </el-button>
-          <el-button size="medium" type="primary" plain @click="changeScale(-1)">
+          <el-button size="large" type="primary" plain @click="changeScale(-1)">
             <MyIcon type="icon-narrow"/>
           </el-button>
-          <el-button size="medium" type="primary" plain @click="changeReset()">
+          <el-button size="large" type="primary" plain @click="changeReset()">
             <MyIcon type="icon-reset"/>
           </el-button>
-          <el-button size="medium" type="primary" plain @click="changeRotate(1)">
+          <el-button size="large" type="primary" plain @click="changeRotate(1)">
             <MyIcon type="icon-clockwise-sense"/>
           </el-button>
-          <el-button size="medium" type="primary" plain @click="changeRotate(-1)">
+          <el-button size="large" type="primary" plain @click="changeRotate(-1)">
             <MyIcon type="icon-clockwise-dirction"/>
           </el-button>
         </el-button-group>
-        <el-button size="medium" @click="showCopper=false">取 消</el-button>
-        <el-button type="primary" @click="confirmFn" size="medium">确 定</el-button>
+        <el-button size="large" @click="showCopper=false">取 消</el-button>
+        <el-button type="primary" @click="confirmFn" size="large">确 定</el-button>
       </template>
     </el-dialog>
   </div>
@@ -87,18 +87,24 @@ const props = defineProps({
     type: String,
     required: true,
     default: 'upload'
+  },
+  // 保存文件名
+  name: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 // 图片裁剪比例
 const fixedNumber = computed(() => {
-  console.log(props.width)
-  console.log(props.height)
-    if (Object.is(props.width, NaN) && Object.is(props.height, NaN)) {
-      return props.width / props.height
-    } else {
-      return 1
+      console.log(props.width)
+      console.log(props.height)
+      if (Object.is(props.width, NaN) && Object.is(props.height, NaN)) {
+        return props.width / props.height
+      } else {
+        return 1
+      }
     }
-  }
 )
 // 定义事件(子组件向父组件传参)
 const emit = defineEmits(['saveImg']);
@@ -157,7 +163,14 @@ const confirmFn = () => {
     console.log(blobData)
     loading.value = true
     //blob转file
-    const file = new File([blobData], timeFile(Date.now()) + '.jpg', {type: blobData.type});
+    console.log(props.name)
+    let file_name = ''
+    if (props.name) {
+      file_name = props.name
+    } else {
+      file_name = timeFile(Date.now()) + '.jpg'
+    }
+    const file = new File([blobData], file_name, {type: blobData.type});
     console.log(file)
     upload(props.dir, file).then((response) => {
       console.log(response)

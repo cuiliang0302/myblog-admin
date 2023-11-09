@@ -16,7 +16,7 @@
         <el-table-column prop="namespace" label="名称空间" width="200" align="center"/>
         <el-table-column prop="description" label="描述信息" align="center"/>
         <el-table-column prop="items_count" label="文档数" width="100" align="center"/>
-        <el-table-column prop="updated_time" label="更新时间" width="200" align="center">
+        <el-table-column prop="updated_time" label="同步时间" width="200" align="center">
           <template #default="scope">
             <span>{{ timeFull(scope.row.updated_time) }}</span>
           </template>

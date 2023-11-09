@@ -55,11 +55,8 @@ npm run build
 
 ### dev模式
 
-src/api/request.js手动请求登录接口，填写token
+src/api/request.js手动请求登录接口，填写token，使用jwt认证
 
 ### prod模式
 
-dockerfile打包时会自动注释token，使用session认证
-
-## 更新日志
-v1.0
+打包时注释token，使用csrf验证

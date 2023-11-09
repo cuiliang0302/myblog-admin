@@ -9,8 +9,18 @@ export function request(config) {
     })
     // 请求拦截器配置
     instance.interceptors.request.use(config => {
-            const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYzMDMwODEwLCJpYXQiOjE2NjMwMzAyMTAsImp0aSI6IjhmZjY3Y2JiZWQwNTQyNDdiZmMzZTVkOTM2M2NkN2I1IiwidXNlcl9pZCI6MX0.MD9LNvSsaK_aoIUAfeAQz0uyLpkuoPsBN7w1xGl4hsc'
-            config.headers.Authorization = 'Bearer ' + token
+            let env_name = import.meta.env.MODE
+            if (env_name === 'development') {
+                // 开发模式，使用jwt认证
+                const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk5NTQwMzE0LCJpYXQiOjE2OTk1Mzk3MTQsImp0aSI6ImVmYTc0NDhkZDFhNjQzZTQ4ODUzNWZkZDAxMzM2ZTRkIiwidXNlcl9pZCI6MX0.FQUbS5ofp_iV-8Jl-yqIX9mVT5DPK_DEzHdzCdZDdCk'
+                config.headers.Authorization = 'Bearer ' + token
+            } else {
+                // 生产模式，使用csrf认证
+                config.headers['X-Requested-With'] = 'XMLHttpRequest';
+                let regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken值
+                config.headers['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1];
+            }
+            console.log(config)
             return config
         }, error => {
             console.log(error)
@@ -32,7 +42,6 @@ export function request(config) {
                     break
                 case 403:
                     ElMessage.error('对不起，您的身份信息已过期，请重新登录！')
-                    window.location.href = "https://www.cuiliangblog.cn/loginRegister?component=Login";
                     break
                 case 404:
                     console.log("404啦")
