@@ -53,10 +53,16 @@ npm run build
 
 ## 注意事项
 
-### dev模式
+### 使用步骤
+1. 打包vue项目
 
-src/api/request.js手动请求登录接口，填写token，使用jwt认证
+`npm run build`
 
-### prod模式
+2. 更新Django静态资源文件
 
-打包时注释token，使用csrf验证
+```bash
+rm -rf static/dist
+mv /opt/WebstormProjects/myblog-admin-new/dist /opt/PycharmProjects/MyblogApi/static
+```
+
+3. git记得添加dist目录

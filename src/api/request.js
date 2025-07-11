@@ -20,24 +20,34 @@ export function request(config) {
   })
   // 请求拦截器配置
   instance.interceptors.request.use(config => {
-    let env_name = import.meta.env.MODE
-    if (env_name === 'development') {
-      console.log("开发模式，使用jwt认证")
-      // 开发模式，使用jwt认证
-      const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUyMzk0NzYzLCJpYXQiOjE3NTEwOTg3NjMsImp0aSI6IjU2MjE3Nzc1MDg5MDQ1YWY5ZTA5OTFlYTVjMzIyNTc2IiwidXNlcl9pZCI6MX0.VhjfgfTj7Z5BW7MctpswGFAzqHlbrwV4KByY_eemONM'
-      config.headers.Authorization = 'Bearer ' + token
-    } else {
-      console.log("生产模式，使用csrf认证")
-      // 生产模式，使用csrf认证
-      config.headers['X-Requested-With'] = 'XMLHttpRequest';
-      // 从cookie中匹配 csrftoken值
-      console.log("当前浏览器 Cookie:", document.cookie);
-      const match = document.cookie.match(/(^|;) ?csrftoken=([^;]*)/);
-      const csrfToken = match ? match[2] : null;
-      console.log("提取到的 csrftoken:", csrfToken);
-      config.headers['X-CSRFToken'] = csrfToken;
-      console.log(config)
-    }
+    console.log("使用csrf认证")
+    // 生产模式，使用csrf认证
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    // 从cookie中匹配 csrftoken值
+    console.log("当前浏览器 Cookie:", document.cookie);
+    const match = document.cookie.match(/(^|;) ?csrftoken=([^;]*)/);
+    const csrfToken = match ? match[2] : null;
+    console.log("提取到的 csrftoken:", csrfToken);
+    config.headers['X-CSRFToken'] = csrfToken;
+    console.log(config)
+    // let env_name = import.meta.env.MODE
+    // if (env_name === 'development') {
+    //   console.log("开发模式，使用jwt认证")
+    //   // 开发模式，使用jwt认证
+    //   const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzNDkzNTM0LCJpYXQiOjE3NTIxOTc1MzQsImp0aSI6IjgwZDc2MDA4ZWMyZTRhYjFhMGRkMGQyYWRiZmMyN2FmIiwidXNlcl9pZCI6MX0.CnyHyrh4-vnKwfITixZTVD-B_tbX1yGRbiD2IaW8MZI'
+    //   config.headers.Authorization = 'Bearer ' + token
+    // } else {
+    //   console.log("生产模式，使用csrf认证")
+    //   // 生产模式，使用csrf认证
+    //   config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    //   // 从cookie中匹配 csrftoken值
+    //   console.log("当前浏览器 Cookie:", document.cookie);
+    //   const match = document.cookie.match(/(^|;) ?csrftoken=([^;]*)/);
+    //   const csrfToken = match ? match[2] : null;
+    //   console.log("提取到的 csrftoken:", csrfToken);
+    //   config.headers['X-CSRFToken'] = csrfToken;
+    //   console.log(config)
+    // }
     console.log(config)
     return config
   }, error => {

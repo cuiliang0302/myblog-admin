@@ -155,7 +155,9 @@ const cancel = () => {
 </script>
 <style scoped lang="scss">
 .main {
-  padding: 15px;
+  padding: 20px;
+  background-color: #f1f4f6;
+  height: 95vh;
 }
 
 .el-card {
